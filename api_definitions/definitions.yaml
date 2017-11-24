@@ -1,0 +1,12 @@
+id: http://www.wowinc.com/microservice-schemas/wow/#
+definitions:
+  CustomerAccountByAccNumberRequest:
+    id: "#definitions/CustomerAccountByAccNumberRequest"
+    type: object
+    description: Customer account information.
+    properties:
+      accountNumber:
+        type: string
+        pattern: '^\d+$'
+        description: "Represents the customer account number in one of the WOW billing systems."
+    required: [accountNumber]

@@ -1,0 +1,132 @@
+# this is an example of the Service Order API
+# as a demonstration of an API spec in YAML
+swagger: '2.0'
+info:
+  title: "Customer Account API"
+  description: "Customer Account API: Provides customer account details."
+  version: "1.0.0"
+# the domain of the service
+host: "api.wowinc.com"
+# array of all schemes that your API supports
+schemes:
+  - "https"
+# will be prefixed to all paths
+basePath: "/customer-account-v1"
+
+paths:
+  /customer/account/{accountNumber}:
+    get:
+      summary: "Get Customer Account by providing Account Number."
+      operationId: "getCustomerAccount"
+      description: "Look up customers account based on Account Number. As result are returned Account Number, Customer name, Customer Address and Contact details."
+      parameters:
+        - name: accountNumber
+          in: path
+          type: string
+          description: Account Number
+          required: true
+      tags:
+        - Account
+      produces:
+        - application/json
+      responses:
+        200:
+          description: "Customer account summary."
+          schema:
+            $ref: "#/definitions/Account"
+        400:
+          description: "Bad request."
+          schema:
+            $ref: "#/definitions/Error"
+        401:
+          description: "User not authenticated."
+        403:
+          description: "User not authorized."
+        404:
+          description: "Not found."
+        429:
+          description: "API rate limit exceeded. Please try later."
+        500:
+          description: "Internal server error."
+          schema:
+            $ref: "#/definitions/Error"  
+  
+################################################################################
+#                                 Definitions                                  #
+################################################################################
+definitions:
+  Account:
+    type: "object"
+    description: "Customer account summary."
+    properties:
+      marketId:
+        type: "string"
+        minLength: 1
+        description: "WOW Market Id"
+      accountNumber:
+        type: "string"
+        minLength: 1
+        description: "WOW Account number"
+      customerName:
+        type: "string"
+        description: "Customer name"
+        minLength: 1
+      customerType:
+        type: string
+        description: "Customer type"
+        enum: [Residential, Business]
+      accountStatus:
+        type: string
+        description: "Account status"
+        enum: [Residential, Business, MDU]
+      customerSegmentation:
+        type: string
+        description: "Customer segmentation"
+      addressId:
+        type: string
+        description: "WOW address id."
+      streetAddress:
+        type: string
+        description: "Address name"
+      appartmentNumber:
+        type: string
+        description: "Appartment number"
+      city:
+        type: string
+        description: "City"
+      state:
+        type: string
+        description: "State"
+      zip:
+        type: string
+        description: "ZIP"
+      fullAddress:
+        type: string
+        description: "Complete address"
+      emailAddresses:
+        type: string
+        description: "List of e-mail addresses"
+      daytimePhone:
+        type: string
+        description: "Daytime phone"
+      eveningPhone:
+        type: string
+        description: "Evening phone"
+      otherPhoneNumber:
+        type: string
+        description: "Other phone number"
+      contactName:
+        type: string
+        description: "Contact name"
+    
+  Error:
+    type: "object"
+    properties:
+      errorCode:
+        type: "integer"
+        format: "int32"
+      errorDescription:
+        type: "string"
+      message:
+        type: "string"
+    required: [errorCode, errorDescription, message]

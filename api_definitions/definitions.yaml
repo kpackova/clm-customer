@@ -10,3 +10,32 @@ definitions:
         pattern: '^\d+$'
         description: "Represents the customer account number in one of the WOW billing systems."
     required: [accountNumber]
+  UpdateAccountEmailAddressRequest:
+    id: "#definitions/UpdateAccountEmailAddressRequest"
+    type: object
+    description: New Customer account communication email.
+    properties:
+      accountNumber:
+        type: string
+        pattern: '^\d+$'
+        description: "Represents the customer account number in one of the WOW billing systems."
+      email:
+        type: string
+        description: "New communication email"
+    required: [accountNumber, email]
+  GetAccountChannelLineUpRequest:
+    id: "#definitions/GetAccountChannelLineUpRequest"
+    type: "object"
+    properties:
+      accountNumber:
+        type: "string"
+        minLength: 1
+        description: "WOW Account number"
+      billingSystemId:
+        type: "string"
+        minLength: 1
+        description: "WOW Billing system id"
+      corpId:
+        type: "string"
+        minLength: 1
+        description: "WOW corporation id" 

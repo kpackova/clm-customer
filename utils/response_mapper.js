@@ -6,8 +6,59 @@
  */
 module.exports = {
     prepare_account_summary_response,
+    prepare_account_bundle_response,
+    prepare_account_channel_lineup_response,
+    prepare_account_email_response,
     error_mapper
 };
+
+
+/**
+ * Map response for Account communication email
+ * @param {object} api_response - Raw api response.
+ * @return {object} Mapped response.
+ */
+function prepare_account_email_response(api_response) {
+    if (api_response!==undefined) {
+        let preparedResponse = {"email":"john.smith@yahoo.com"};
+        return preparedResponse;
+    } else {
+        return {};
+    }
+}
+
+/**
+ * Map response for Account chnnel lineup
+ * @param {object} api_response - Raw api response.
+ * @return {object} Mapped response.
+ */
+function prepare_account_channel_lineup_response(api_response) {
+    if (api_response!==undefined) {
+        let preparedResponse = ["WAGA - FOX","WXIA - NBC"];
+        return preparedResponse;
+    } else {
+        return [];
+    }
+}
+
+/**
+ * Map response for Account bundle
+ * @param {object} api_response - Raw api response.
+ * @return {object} Mapped response.
+ */
+function prepare_account_bundle_response(api_response) {
+    if (api_response!==undefined) {
+        let preparedResponse = {
+            "phone": {
+            "disconnectDate": "12.12.2017",
+            "firstConnectDate": "12.03.2005"
+          }
+        };
+        return preparedResponse;
+    } else {
+        return {};
+    }
+}
 
 /**
  * Map response for Account summary
@@ -56,7 +107,7 @@ function prepare_account_summary_response(api_response) {
         };
         return preparedResponse;
     } else {
-        return [];
+        return {};
     }
 }
 
